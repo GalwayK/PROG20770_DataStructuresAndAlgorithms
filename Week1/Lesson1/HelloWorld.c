@@ -1,7 +1,6 @@
 // Import statement for standard input and output.
-#include <stdio.h>
+#include<stdio.h>
 
-// Must declare functions above use - no hoisting!
 void funcHelloWorld(int intRepetitions, char strFirstName[])
 {
 	for (int i = 0; i < intRepetitions; i++)
