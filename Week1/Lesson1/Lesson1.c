@@ -46,6 +46,7 @@ int main(int argc, char** argv)
 	
 	int intFirstNameLength = 255;
 	char strFirstName[intFirstNameLength];
+	
 	char strFirstNameLength[255];
 	sprintf(strFirstNameLength, "%d", intFirstNameLength);
 	char strTemplate[255] = "%";
@@ -64,11 +65,11 @@ int main(int argc, char** argv)
 
 // Definitions
 /*
-Preprocessor:
-Linker:  
-Source File: 
-Header File: 
-Object File: 
+Preprocessor: Works before compiler, adds header files. 
+Linker: Combines object files into executable files. 
+Source File: The human readable code files. 
+Header File: Source files which only contain declarations. 
+Object File: The compiled source files. 
 */
 
 // Four Main Properties of Variables 

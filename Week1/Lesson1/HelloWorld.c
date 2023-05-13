@@ -14,7 +14,8 @@ void funcMakeError()
 {
 	// Scanf seems like it will return default values if data type mismatches.
 	int intError;
-	scanf("%d", intError);
+	printf("Enter something: ");
+	scanf("%d", &intError);
 	printf("Error: %d", intError);
 }
 
