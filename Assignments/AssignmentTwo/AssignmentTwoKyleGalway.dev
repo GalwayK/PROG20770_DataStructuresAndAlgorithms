@@ -1,6 +1,6 @@
 [Project]
-FileName=AssignmentTwoKyleGalwayScoreList.dev
-Name=AssignmentTwoKyleGalwayScoreList
+FileName=AssignmentTwoKyleGalway.dev
+Name=AssignmentTwoKyleGalway
 Type=1
 Ver=2
 ObjFiles=
@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=AssignmentTwoKyleGalwayMain.c
+FileName=main.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -61,7 +61,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=Score.c
+FileName=AssignmentTwoFullName.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -71,17 +71,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=Score.h
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit4]
-FileName=FullName.h
+FileName=AssignmentTwoFullName.h
 CompileCpp=0
 Folder=
 Compile=1
@@ -91,7 +81,27 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=FullName.c
+FileName=AssignmentTwoScore.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit6]
+FileName=AssignmentTwoScore.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit4]
+FileName=AssignmentTwoScore.c
 CompileCpp=0
 Folder=
 Compile=1
