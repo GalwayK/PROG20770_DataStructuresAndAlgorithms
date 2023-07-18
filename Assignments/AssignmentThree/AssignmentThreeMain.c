@@ -4,6 +4,7 @@
 #include<stdbool.h>
 #include "AssignmentThreeInventory.h"
 #define DEFAULT_INPUT_NUMBER -1
+#define DEFAULT_INPUT_CHAR '\0'
 
 void runAssignmentOne(void);
 
@@ -13,9 +14,17 @@ void selectPrintPart(InventoryList** pntInventoryList);
 
 void selectPrintInventory(InventoryList* inventoryList);
 
-void selectUpdatePartNumber(InventoryList** pntInventoryList);
+void selectUpdatePartQuantity(InventoryList** pntInventoryList);
+
+void selectCloseProgram(InventoryList** pntInventoryList);
+
+Part* getPartWithInputPartNumber(InventoryList** pntInventoryList);
 
 int* getIntInput(int* pntInteger, char* strPrompt);
+
+char* convertCharToUppercase(char* pntChar);
+
+char* getCharInput(char* pntChar, char* strPrompt);
 
 char* getStringInput(char* pntString, char* strPrompt);
 
@@ -31,7 +40,6 @@ void printInventory(InventoryList* inventoryList);
 
 int main(int argCount, char** argStrings) 
 {
-	puts("Hello world!");
 	runAssignmentOne();
 	return 0;
 }
@@ -40,38 +48,47 @@ void runAssignmentOne(void)
 {
 	char pntStrInput[PART_NAME_MAX_LENGTH];
 	
-	int numInput = -1;
-	int* pntNumInput = &numInput;
+	char charInput = DEFAULT_INPUT_CHAR;
+	char* pntCharInput = &charInput;
 	
 	InventoryList* inventoryList = initializeInventoryList();
 	InventoryList** pntInventoryList = &inventoryList;
 	
-	puts("Welcome to the Parts Database Organization Program!");
+	puts("Welcome to the Parts Database Tracking Application by Kyle Galway!");
 	bool isProgramActive = true;
 	while (isProgramActive)
 	{
 		printHeader();
 		printOptions();
-		getIntInput(pntNumInput, "Please select an option: ");
+		getCharInput(pntCharInput, "Please select an option: ");
 		printHeader();
-		printf("You have entered: %d\n", numInput);
+		printf("You have entered: %c\n", charInput);
 		
-		switch (numInput)
+		switch (charInput)
 		{
-			case 1: 
+			case '1':
+			case 'I': 
 				selectInsertNewPart(pntStrInput, pntInventoryList);
 				break;
-			case 2: 
+			case '2':
+			case 'S': 
 				selectPrintPart(pntInventoryList);
 				break;
-			case 3: 
+			case '3':
+			case 'P': 
 				selectPrintInventory(inventoryList);
 				break;
-			case 4: 
-				selectUpdatePartNumber(pntInventoryList);
-			case 5: 
+			case '4':
+			case 'U': 
+				selectUpdatePartQuantity(pntInventoryList);
+				break;
+			case '5':
+			case 'Q': 
+				selectCloseProgram(pntInventoryList);
 				isProgramActive = false;
 				break;
+			default: 
+				puts("Error: Please select a valid option!");
 		}
 	}
 }
@@ -92,9 +109,28 @@ void selectInsertNewPart(char* pntString, InventoryList** pntInventoryList)
 	insertPartIntoInventory(pntInventoryList, partNumber, pntString, partQuantity);
 }
 
+Part* getPartWithInputPartNumber(InventoryList** pntInventoryList)
+{
+	int partNumber = DEFAULT_INPUT_NUMBER;
+	getIntInput(&partNumber, "Please enter the part number: ");
+	
+	Part* part = searchInventoryListForPartByPartNumber(pntInventoryList, partNumber);
+	return part;
+}
+
 void selectPrintPart(InventoryList** pntInventoryList)
 {
+	Part* part = getPartWithInputPartNumber(pntInventoryList);
 	
+	if (part == NULL)
+	{
+		puts("Error: Part number is not present in database!");
+	}
+	else 
+	{
+		puts("Found part!");
+		printPart(part);
+	}
 }
 
 void selectPrintInventory(InventoryList* inventoryList)
@@ -102,9 +138,34 @@ void selectPrintInventory(InventoryList* inventoryList)
 	printInventory(inventoryList);
 }
 
-void selectUpdatePartNumber(InventoryList** pntInventoryList)
+void selectUpdatePartQuantity(InventoryList** pntInventoryList)
 {
+	Part* part = getPartWithInputPartNumber(pntInventoryList);
 	
+	if (part == NULL)
+	{
+		puts("Error: Part number is not present in database!");
+	}
+	else 
+	{
+		puts("Found part!");
+		printPart(part);
+		
+		int partQuantity = DEFAULT_INPUT_NUMBER;
+		getIntInput(&partQuantity, "Please enter the updated quantity: ");
+		
+		setPartQuantity(part, partQuantity);
+		puts("Updated part quantity!");
+		printPart(part);
+	}
+}
+
+void selectCloseProgram(InventoryList** pntInventoryList)
+{
+	puts("Deallocating memory...");
+	freeAllInventoryListMemory(pntInventoryList);
+	puts("Memory deallocated!");
+	puts("Thank you for using the Parts Database Tracking Application by Kyle Galway!");
 }
 
 void printInventory(InventoryList* pntInventoryList)
@@ -133,11 +194,11 @@ void printHeader(void)
 
 void printOptions(void)
 {
-	puts("1. Add New Part\n"
-		"2. Display Part Information\n"
-		"3. Display All Part Information\n"
-		"4. Update Part Quantity\n"
-		"5. End program\n");
+	puts("1. Add New Part (1 or I)\n"
+		"2. Display Part Information (2 or S)\n"
+		"3. Display All Part Information (3 or P)\n"
+		"4. Update Part Quantity (4 or U)\n"
+		"5. Close program (5 or Q)\n");
 }
 
 
@@ -147,11 +208,29 @@ int* getIntInput(int* pntInteger, char* strPrompt)
 	fflush(stdin);
 	int numResult = scanf("%d", pntInteger);
 	
-	if (numResult == 0)
+	if (numResult == 0 || *pntInteger < 0)
 	{
-		puts("Error, please enter an integer!");
+		puts("Error, please enter a positive integer!");
 		getIntInput(pntInteger, strPrompt);
 	}
+	return pntInteger;
+}
+
+char* convertCharToUppercase(char* pntChar)
+{
+	if (*pntChar >= 97 && *pntChar <= 121)
+	{
+		*pntChar = *pntChar - 32;
+	}
+	return pntChar;
+}
+
+char* getCharInput(char* pntChar, char* strPrompt)
+{
+	printf("%s", strPrompt);
+	fflush(stdin);
+	*pntChar = getchar();
+	return pntChar;
 }
 
 char* getStringInput(char* pntString, char* strPrompt)
@@ -165,6 +244,7 @@ char* getStringInput(char* pntString, char* strPrompt)
 		puts("Error, please enter a valid string!");
 		getStringInput(pntString, strPrompt);
 	}
+	return pntString;
 }
 
 /*

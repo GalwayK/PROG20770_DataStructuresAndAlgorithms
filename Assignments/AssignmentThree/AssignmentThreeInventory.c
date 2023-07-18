@@ -1,6 +1,7 @@
 #include "AssignmentThreeInventory.h"
 #include<stdlib.h>
 #include<stdbool.h>
+#include<stdio.h>
 
 InventoryList* initializeInventoryList()
 {
@@ -13,7 +14,16 @@ InventoryList* initializeBlankInventoryNode()
 	InventoryList* pntInventory = malloc(sizeof(InventoryList));
 	*pntInventory = inventory;
 	
+	pntInventory -> pntPart = NULL;
 	pntInventory -> pntNextNode = NULL;
+	
+	return pntInventory;
+}
+
+InventoryList* initializeDetailedInventoryNode(Part* part)
+{
+	InventoryList* pntInventory = initializeBlankInventoryNode();
+	pntInventory -> pntPart = part;
 	
 	return pntInventory;
 }
@@ -29,14 +39,6 @@ bool isPartGreater(InventoryList* pntNodeOne, InventoryList* pntNodeTwo)
 	Part* pntPartTwo = getPartFromInventoryNode(pntNodeTwo);
 	
 	return pntPartOne -> intPartNumber > pntPartTwo -> intPartNumber;
-}
-
-InventoryList* initializeDetailedInventoryNode(Part* part)
-{
-	InventoryList* pntInventory = initializeBlankInventoryNode();
-	pntInventory -> pntPart = part;
-	
-	return pntInventory;
 }
 
 void insertPartInOrder(InventoryList** pntInventoryList, Part* pntPart)
@@ -73,6 +75,36 @@ void insertPartIntoInventory(InventoryList** pntInventoryList,
 	InventoryList* pntInventoryNode = initializeDetailedInventoryNode(pntPart);
 	
 	insertPartInOrder(pntInventoryList, pntPart);
+}
+
+Part* searchInventoryListForPartByPartNumber(InventoryList** pntInventoryList, 
+	int partNumber)
+{
+	InventoryList* pntCurrentNode = *pntInventoryList;
+	while (pntCurrentNode != NULL)
+	{
+		if (getPartFromInventoryNode(pntCurrentNode) -> intPartNumber == partNumber)
+		{
+			break;
+		}
+		pntCurrentNode = pntCurrentNode -> pntNextNode;
+	}
+	return pntCurrentNode != NULL ? pntCurrentNode -> pntPart : NULL;
+}
+
+void freeAllInventoryListMemory(InventoryList** pntInventoryList)
+{
+	InventoryList* pntCurrentNode = *pntInventoryList;
+	InventoryList* pntPreviousNode = NULL;
+	
+	while (pntCurrentNode != NULL)
+	{
+		pntPreviousNode = pntCurrentNode;
+		pntCurrentNode = pntCurrentNode -> pntNextNode;
+		free(pntPreviousNode);
+	}
+	
+	*pntInventoryList = initializeInventoryList();
 }
 
 
