@@ -1,6 +1,6 @@
 #define NUM_MAX_SCORE 100
 #define NUM_MIN_SCORE 0
-#include<stdbool.h>
+#include <stdbool.h>
 #include "AssignmentTwoFullName.h"
 
 const static int MAX_SCORE = NUM_MAX_SCORE;

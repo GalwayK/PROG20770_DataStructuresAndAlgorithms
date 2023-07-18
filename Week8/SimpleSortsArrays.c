@@ -11,17 +11,57 @@ void insertionSortArray(int* arrNumbers, int numArrLength);
 
 void printArray(int* arrNumbers, int numArrLength);
 
+void insertNumber(int* arrNumbers, int* numArrLength, int numArrLimit, int numInsert);
+
 int main(int argCount, char** argStrings)
 {
 	printf("%s", "Hello world!\n");
 	
+	int numArrLimit = 12;
 	int numArrLength = 10;
-	int arrNumbers[] = {3, 5, 9, 1, 2, 4, 8, 7, 0, 6};
+	int arrNumbers[] = {3, 5, 9, 1, 2, 4, 8, 7, 0, 6, 0, 0};
 
 	selectionSortArray(arrNumbers, numArrLength);
 	// insertionSortArray(arrNumbers, numArrLength);
 	// bubbleSortArray(arrNumbers, numArrLength);
 	// reverseSelectionSortArray(arrNumbers, numArrLength);	
+	
+	puts("Inserting Number");
+	insertNumber(arrNumbers, &numArrLength, numArrLimit, 2);
+	
+	insertNumber(arrNumbers, &numArrLength, numArrLimit, -3);
+}
+
+void insertNumber(int* arrNumbers, int* numArrLength, int numArrLimit, 
+	int numInsert)
+{
+	if (numArrLimit == *numArrLength)
+	{
+		return;
+	}
+	printf("%d\n", *numArrLength);
+	
+	arrNumbers[*numArrLength] = numInsert;
+	*numArrLength += 1;
+	
+	printf("%d\n", *numArrLength);
+	
+	puts("Before!");
+	printArray(arrNumbers, *numArrLength);
+	
+	for (int i = *numArrLength - 1; i > 0; i--)
+	{
+		if (arrNumbers[i] > arrNumbers[i - 1])
+		{
+			break;
+		}
+		numInsert = arrNumbers[i - 1];
+		arrNumbers[i - 1] = arrNumbers[i];
+		arrNumbers[i] = numInsert;
+		printArray(arrNumbers, *numArrLength);
+	}
+	puts("After!");
+	printArray(arrNumbers, *numArrLength);
 }
 
 void insertionSortArray(int* arrNumbers, int numArrLength)

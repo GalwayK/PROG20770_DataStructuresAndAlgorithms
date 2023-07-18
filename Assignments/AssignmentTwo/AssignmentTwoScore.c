@@ -1,6 +1,6 @@
 #include "AssignmentTwoScore.h"
 #include <stdlib.h>
-#include<stdio.h>
+#include <stdio.h>
 
 // Function to set scorelist to NULL if empty (can be done in main)
 void initializeScoreList(Score** scoreList)
