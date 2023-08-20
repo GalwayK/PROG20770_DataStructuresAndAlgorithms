@@ -1,0 +1,55 @@
+# Project: Test3Review
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+OBJ      = Test3Review_Main.o Test3Review_BubbleSort.o Test3Review_SelectionSort.o Test3Review_InsertionSort.o Test3Review_QuickSort.o Test3Review_Searching.o Test3Review_AutoSort.o Test3Review_HeapSort.o Test3Review_ShellSort.o Test3Review_BinaryTrees.o
+LINKOBJ  = Test3Review_Main.o Test3Review_BubbleSort.o Test3Review_SelectionSort.o Test3Review_InsertionSort.o Test3Review_QuickSort.o Test3Review_Searching.o Test3Review_AutoSort.o Test3Review_HeapSort.o Test3Review_ShellSort.o Test3Review_BinaryTrees.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = Test3Review.exe
+CXXFLAGS = $(CXXINCS) -Wall -g3 -std=c99 -Wall -Wstrict-prototypes -pedantic-errors
+CFLAGS   = $(INCS) -Wall -g3 -std=c99 -Wall -Wstrict-prototypes -pedantic-errors
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+Test3Review_Main.o: Test3Review_Main.c
+	$(CC) -c Test3Review_Main.c -o Test3Review_Main.o $(CFLAGS)
+
+Test3Review_BubbleSort.o: Test3Review_BubbleSort.c
+	$(CC) -c Test3Review_BubbleSort.c -o Test3Review_BubbleSort.o $(CFLAGS)
+
+Test3Review_SelectionSort.o: Test3Review_SelectionSort.c
+	$(CC) -c Test3Review_SelectionSort.c -o Test3Review_SelectionSort.o $(CFLAGS)
+
+Test3Review_InsertionSort.o: Test3Review_InsertionSort.c
+	$(CC) -c Test3Review_InsertionSort.c -o Test3Review_InsertionSort.o $(CFLAGS)
+
+Test3Review_QuickSort.o: Test3Review_QuickSort.c
+	$(CC) -c Test3Review_QuickSort.c -o Test3Review_QuickSort.o $(CFLAGS)
+
+Test3Review_Searching.o: Test3Review_Searching.c
+	$(CC) -c Test3Review_Searching.c -o Test3Review_Searching.o $(CFLAGS)
+
+Test3Review_AutoSort.o: Test3Review_AutoSort.c
+	$(CC) -c Test3Review_AutoSort.c -o Test3Review_AutoSort.o $(CFLAGS)
+
+Test3Review_HeapSort.o: Test3Review_HeapSort.c
+	$(CC) -c Test3Review_HeapSort.c -o Test3Review_HeapSort.o $(CFLAGS)
+
+Test3Review_ShellSort.o: Test3Review_ShellSort.c
+	$(CC) -c Test3Review_ShellSort.c -o Test3Review_ShellSort.o $(CFLAGS)
+
+Test3Review_BinaryTrees.o: Test3Review_BinaryTrees.c
+	$(CC) -c Test3Review_BinaryTrees.c -o Test3Review_BinaryTrees.o $(CFLAGS)
